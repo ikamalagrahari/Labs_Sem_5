@@ -1,0 +1,40 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  #final {
+    flex-wrap: wrap;
+    max-width: 100%;
+    justify-content: center;
+    align-items: center;
+    font-size: larger;
+    margin-left: 20%;
+      margin-right: 20%;
+  }
+  #info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    /* margin-right: 50%; */
+    margin-left: -20%;
+  }
+  
+  img .profile {
+    height: 130px;
+    margin-top: -90px;
+  }
+  
+  table,
+  th,
+  tr,
+  td {
+    border-collapse: collapse;
+  }
+  
+  .sign{
+      height: 80px;
+      margin-left:    -8%;
+      margin-top: -1%;
+  }
