@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Registration Form</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa;
+}
+form {
+    margin: auto;
+    padding: 20px;
+    border: 2px solid rgb(228, 207, 207);
+    border-radius: 25px;
+    box-shadow: 1px 4px 8px rgba(0, 0, 0, 0.196);
+    background-color: #fff;
+}
+header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+.primary-heading {
+    color: rgb(61, 56, 56);
+}
+.heading-text {
+    font-size: 14px;
+    color: gray;
+}
+.form-group {
+    padding: 12px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+.fullspan {
+    grid-column: span 2;
+}
+.name-group {
+    display: flex;
+    justify-content: space-between;
+}
+.name-group-item {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.name-group-item label {
+    padding-top: 8px;
+}
+.row-group {
+    display: flex;
+    flex-direction: column;
+}
+label {
+    margin-bottom: 10px;
+    color: rgb(15, 13, 18);
+    font-weight: bold;
+    font-size: 20px;
+}
+input, select {
+    height: 26px;
+    border-radius: 8px;
+    padding: 5px 8px;
+    border: 2px solid rgba(232, 230, 230, 0.911);
+    background-color: rgba(232, 230, 230, 0.737);
+}
+.sub-label {
+    color: rgb(61, 56, 56);
+    font-size: 15px;
+    font-weight: 400;
+}
+.padding-right {
+    padding-right: 20px;
+}
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+.btn {
+    display: inline-block;
+    padding: 8px 10px;
+    width: 50%;
+    border: none;
+    border-radius: 20px;
+    background-color: rgba(140, 139, 139, 0.737);
+    color: rgb(36, 35, 35);
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+}
+</style>
+</head>
+<body>
+<form action="">
+    <header>
+        <h1 class="primary-heading">Class Registration</h1>
+        <p class="heading-text">
+            Fill out the form carefully. <br /> Required field are labeled as '*'
+        </p>
+    </header>
+    <div class="form-group">
+        <div class="row-group fullspan">
+            <label for="first_name">Student Name</label>
+            <div class="name-group">
+                <div class="name-group-item padding-right">
+                    <input type="text" name="first_name" id="first_name" />
+                    <label class="sub-label" for="first_name">First Name</label>
+                </div>
+                <div class="name-group-item padding-right">
+                    <input type="text" name="middle_name" id="middle_name" />
+                    <label class="sub-label" for="middle_name">Middle Name</label>
+                </div>
+                <div class="name-group-item">
+                    <input type="text" name="last_name" id="last_name" />
+                    <label class="sub-label" for="last_name">Last Name</label>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <div class="form-group">
+        <div class="row-group">
+            <label for="gender">Gender</label>
+            <select name="gender" id="gender">
+                <option value="null">Please Select</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+        <div class="row-group">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" placeholder="Ex: vu4f2223028@pvppcoe.ac.in" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row-group">
+            <label for="id">Student ID</label>
+            <input type="text" name="id" id="id" placeholder="Ex: VU4F2223028" />
+        </div>
+        <div class="row-group">
+            <label for="division">Division</label>
+            <select name="division" id="division">
+                <option value="null">Please Select</option>
+                <option value="a">A</option>
+                <option value="b">B</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group ">
+        <div class="row-group fullspan">
+            <label for="elective">Select Courses</label>
+            <div class="name-group ">
+                <div class="name-group-item padding-right">
+                    <select name="elective" id="elective">
+                        <option value="null">Please Select</option>
+                        <option value="admt">ADMT</option>
+                        <option value="adsa">ADSA</option>
+                    </select> 
+                    <label class="sub-label" for="elective">Elective</label>
+                </div>
+                <div class="name-group-item">
+                    <select name="honors" id="honors">
+                        <option value="null">Please Select</option>
+                        <option value="ds">Data Science</option>
+                        <option value="aiml">AI & ML</option>
+                        <option value="csl">Cybersecurity & Law</option>
+                    </select>
+                    <label class="sub-label" for="honors">Honors</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <button type="submit" class="btn">Submit</button>
+    </footer>
+</form>
+</body>
+</html>
+
