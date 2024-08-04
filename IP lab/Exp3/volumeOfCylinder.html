@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculate Volume of Cylinder</title>
+  </head>
+  <body>
+    <h1>Volume of Cylinder</h1>
+    <p id="radius"></p>
+    <p id="height"></p>
+    <p id="volume"></p>
+
+    <script>
+      // Program to calculate Volume of a Cylinder
+
+      const pi = 3.141592653;
+      const radius = 5;
+      const height = 10;
+
+      const volumeOfCylinder = pi * radius * radius * height;
+      document.getElementById('radius').textContent = `Radius of Cylinder: ${radius}cm`;
+      document.getElementById('height').textContent = `Height of Cylinder: ${height}cm`;
+      document.getElementById('volume').textContent = `Calculated Volume of Cylinder: ${volumeOfCylinder} cubic cm`;
+    </script>
+  </body>
+</html>

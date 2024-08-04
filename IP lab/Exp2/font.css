@@ -1,0 +1,94 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+    padding: 0 20px;
+}
+
+.header {
+  text-align: center;
+  font-size: 26px;
+  padding: 10px 0;
+}
+
+hr {
+  margin: 10px 0;
+}
+
+label {
+  font-size: 18px;
+  padding: 15px;
+}
+
+p {
+  padding: 16px;
+}
+
+#font-family {
+  font-family: "Comic Sans MS";
+}
+
+#font-size {
+  font-size: 12px;
+}
+
+#font-weight {
+  font-weight: 700;
+}
+
+#font-style {
+  font-style: italic;
+}
+
+#font-variant {
+  font-variant: small-caps;
+}
+
+#font-stretch {
+  font-stretch: ultra-expanded;
+}
+
+#color {
+  color: cadetblue;
+}
+
+#text-align {
+  text-align: right;
+}
+
+#text-decoration {
+  text-decoration: line-through;
+}
+
+#text-transform {
+  text-transform: uppercase;
+}
+
+#text-indent {
+  text-indent: 30px;
+}
+
+#line-height {
+  line-height: 1.5;
+}
+
+#letter-spacing {
+  letter-spacing: 5px;
+}
+
+#word-spacing {
+  word-spacing: 15px;
+}
+
+#text-shadow {
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+#white-space {
+  white-space: nowrap;
+}

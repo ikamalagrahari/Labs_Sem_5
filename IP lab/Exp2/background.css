@@ -1,0 +1,81 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  header {
+    font-size: 22px;
+    padding: 15px 0;
+    text-align: center;
+  }
+  
+  .grid-box {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 50px;
+    justify-items: center;
+  }
+  
+  .grid-box div {
+    width: 200px;
+    height: 200px;
+    border-radius: 15px;
+  }
+  
+  .grid-box div p {
+    color: rgb(237, 233, 233);
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+      1px 1px 0 #000;
+  
+    font-size: 18px;
+    text-align: center;
+    background-color: aliceblue;
+    margin: 50% 0;
+  }
+  
+  #background-color {
+    background-color: aqua;
+  }
+  
+  #background-image {
+    background-image: url(background-img.jpeg);
+  }
+  
+  #background-position {
+    background-image: url(background-img.jpeg);
+    background-position: center;
+  }
+  
+  #background-size {
+    background-image: url(background-img.jpeg);
+    background-size: contain;
+  }
+  
+  #background-repeat {
+    background-image: url(small-img.jpg);
+    background-size: 65px;
+    background-repeat: repeat;
+  }
+  
+  #background-origin {
+    background-image: url(small-img.jpg);
+    background-origin: unset;
+  }
+  
+  #background-clip {
+    background-image: url(background-img.jpeg);
+    background-clip: content-box;
+  }
+  
+  #background-attachment {
+    background-image: url(background-img.jpeg);
+    background-attachment: fixed;
+  }
+  
+  #background-blend-mode {
+    background-image: url(background-img.jpeg), url(small-img.jpg);
+    background-blend-mode: exclusion;
+  }
+  

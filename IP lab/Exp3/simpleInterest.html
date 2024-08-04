@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interest Calculator</title>
+    <style>
+      input{
+        margin: 0px 0 20px 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Calculate Your Simple Interest</h1>
+    <label for="principal">Enter your principal amount </label>
+    <input type="number" name="principal" id="principal" />
+    <br />
+    <label for="rate"
+      >Enter you interest rate (percentage value without % symbol)</label
+    >
+    <input type="number" name="rate" id="rate" />
+    <br />
+    <label for="year">Enter your number of years</label>
+    <input type="number" name="year" id="year" />
+    <button id="submit">Calculate Interest</button>
+    <p id="result"></p>
+    <script>
+      const principal = document.getElementById('principal')
+      const rate = document.getElementById('rate')
+      const year = document.getElementById('year')
+      const submit = document.getElementById('submit')
+
+      submit.addEventListener('click', () => {
+        document.getElementById('result').textContent = `Interest Amount = ${principal.value * (rate.value/100) * year.value}`;
+      })
+    </script>
+  </body>
+</html>
