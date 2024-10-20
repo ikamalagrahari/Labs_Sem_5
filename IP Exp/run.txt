@@ -1,0 +1,8 @@
+npx create-react-app appname
+
+
+npm create vite@latest my-app
+
+
+npm i express
+

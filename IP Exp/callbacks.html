@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,
+initial-scale=1.0">
+<title>Callback Example</title>
+<script>
+function fetchData(callback) {
+setTimeout(() => {
+const data = "Data fetched successfully!";
+callback(data);
+}, 1000);
+}
+function displayData(data) {
+document.getElementById("result").innerText = data;
+}
+function handleFetch() {
+fetchData(displayData);
+}
+</script>
+</head>
+<body>
+<h2>Callback Example</h2>
+<button onclick="handleFetch()">Fetch Data</button>
+<p id="result"></p>
+</body>
+</html>

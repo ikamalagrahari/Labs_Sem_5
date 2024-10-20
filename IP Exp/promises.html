@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,
+initial-scale=1.0">
+<title>Promise Example</title>
+<script>
+const fetchData = new Promise((resolve, reject) => {
+const success = true; // Simulate success or failure
+if (success) {
+setTimeout(() => resolve("Data fetched successfully!"), 1000);
+} else {
+setTimeout(() => reject("Error fetching data."),
+1000);
+}
+});
+function handleData() {
+fetchData
+.then(response =>
+document.getElementById("result").innerText = response)
+.catch(error =>
+document.getElementById("result").innerText = error);
+}
+</script>
+</head>
+<body>
+<h2>Promise Example</h2>
+<button onclick="handleData()">Fetch Data</button>
+<p id="result"></p>
+</body>
+</html>

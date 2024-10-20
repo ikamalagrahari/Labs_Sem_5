@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,
+initial-scale=1.0">
+<title>Class and Inheritance</title>
+<script>
+class Person {
+constructor(name, age) {
+this.name = name;
+this.age = age;
+}
+displayInfo() {
+return `Name: ${this.name}, Age: ${this.age}`;
+}
+}
+class Student extends Person {
+constructor(name, age, course, marks) {
+super(name, age);
+this.course = course;
+this.marks = marks;
+}
+displayInfo() {
+return `${super.displayInfo()}, Course:
+${this.course}, Marks: ${this.marks}`;
+}
+}
+function showStudents() {
+const student1 = new Student("Alice", 20, "Math", 95);
+const student2 = new Student("Bob", 22, "Physics", 88);
+document.getElementById("student1").innerText =
+student1.displayInfo();
+document.getElementById("student2").innerText =
+student2.displayInfo();
+}
+</script>
+</head>
+<body onload="showStudents()">
+<h2>Students Information</h2>
+<p id="student1"></p>
+<p id="student2"></p>
+</body>
+</html>
