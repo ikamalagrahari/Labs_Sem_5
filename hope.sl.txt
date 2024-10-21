@@ -1,0 +1,366 @@
++++ 1. Implementation of Caesar Cipher. +++
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+string caesarCipher(const std::string& text, int shift, bool encrypt) {
+    string result = "";
+    for (char c : text) {
+        if (isalpha(c)) {
+            char base = isupper(c) ? 'A' : 'a';
+            int offset = c - base;
+            int newOffset = encrypt ? (offset + shift) % 26 : (offset - shift + 26) % 26;
+            result += static_cast<char>(base + newOffset);
+        } else {
+            result += c; 
+        }
+    }
+    return result;
+}
+
+int main() {
+    string text;
+    int shift;
+    char choice;
+    cout << "Enter the text: ";
+    getline(std::cin, text);
+    cout << "Enter the shift value: ";
+    cin >> shift;
+    cout << "Encrypt (e) or Decrypt (d)? ";
+    cin >> choice;
+    bool encrypt = (choice == 'e' || choice == 'E');
+    string result = caesarCipher(text, shift, encrypt);
+    cout << "Result: " << result << std::endl;
+    return 0;
+}
+
+
+-----------------------------------------------------------------------------
+
+
+
++++ 2. Implementation of Playfair cipher. +++
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+vector<vector<char>> createMatrix(const string& key) {
+    string alphabet = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
+    string uniqueKey = key + alphabet;
+    sort(uniqueKey.begin(), uniqueKey.end());
+    uniqueKey.erase(unique(uniqueKey.begin(), uniqueKey.end()), uniqueKey.end());
+    
+    vector<vector<char>> matrix(5, vector<char>(5));
+    for (int i = 0; i < 25 && i < uniqueKey.length(); ++i) {
+        matrix[i / 5][i % 5] = uniqueKey[i];
+    }
+    return matrix;
+}
+
+pair<int, int> findPosition(const vector<vector<char>>& matrix, char c) {
+    for (int i = 0; i < 5; ++i) {
+        for (int j = 0; j < 5; ++j) {
+            if (matrix[i][j] == c) return {i, j};
+        }
+    }
+    return {-1, -1};
+}
+
+string prepare(const string& text) {
+    string result;
+    for (char c : text) {
+        if (isalpha(c)) {
+            result += toupper(c);
+            if (result.back() == 'J') result.back() = 'I';
+        }
+    }
+    for (size_t i = 0; i < result.length(); i += 2) {
+        if (i + 1 == result.length() || result[i] == result[i + 1]) {
+            result.insert(i + 1, 1, 'X');
+        }
+    }
+    if (result.length() % 2 != 0) {
+        result += 'X';
+    }
+    return result;
+}
+
+string encrypt(const vector<vector<char>>& matrix, const string& plaintext) {
+    string prepared = prepare(plaintext);
+    string ciphertext;
+
+    for (size_t i = 0; i < prepared.length(); i += 2) {
+        auto [r1, c1] = findPosition(matrix, prepared[i]);
+        auto [r2, c2] = findPosition(matrix, prepared[i + 1]);
+
+        if (r1 == -1 || r2 == -1) continue;  // Skip characters not in the matrix
+
+        if (r1 == r2) {
+            ciphertext += matrix[r1][(c1 + 1) % 5];
+            ciphertext += matrix[r2][(c2 + 1) % 5];
+        } else if (c1 == c2) {
+            ciphertext += matrix[(r1 + 1) % 5][c1];
+            ciphertext += matrix[(r2 + 1) % 5][c2];
+        } else {
+            ciphertext += matrix[r1][c2];
+            ciphertext += matrix[r2][c1];
+        }
+    }
+    return ciphertext;
+}
+
+string decrypt(const vector<vector<char>>& matrix, const string& ciphertext) {
+    string plaintext;
+
+    for (size_t i = 0; i < ciphertext.length(); i += 2) {
+        auto [r1, c1] = findPosition(matrix, ciphertext[i]);
+        auto [r2, c2] = findPosition(matrix, ciphertext[i + 1]);
+
+        if (r1 == -1 || r2 == -1) continue;  // Skip characters not in the matrix
+
+        if (r1 == r2) {
+            plaintext += matrix[r1][(c1 + 4) % 5];
+            plaintext += matrix[r2][(c2 + 4) % 5];
+        } else if (c1 == c2) {
+            plaintext += matrix[(r1 + 4) % 5][c1];
+            plaintext += matrix[(r2 + 4) % 5][c2];
+        } else {
+            plaintext += matrix[r1][c2];
+            plaintext += matrix[r2][c1];
+        }
+    }
+    return plaintext;
+}
+
+int main() {
+    string key = "KEYWORD";
+    auto matrix = createMatrix(key);
+    string plaintext = "";
+    cout << "Enter the plaintext: "; getline(cin, plaintext);
+    string encrypted = encrypt(matrix, plaintext);
+    string decrypted = decrypt(matrix, encrypted);
+
+    cout << "\nPlaintext: " << plaintext << endl;
+    cout << "Encrypted: " << encrypted << endl;
+    cout << "Decrypted: " << decrypted << endl;
+
+    return 0;
+}
+
+
+
+------------------------------------------------------------------------
+
++++ 4. Design and Implement a product cipher using Substitution ciphers and Transposition ciphers. +++
+
+def caesar_cipher(text, shift):
+    result = ""
+    for char in text:
+        if char.isalpha():
+            shift_base = 65 if char.isupper() else 97
+            result += chr((ord(char) - shift_base + shift) % 26 + shift_base)
+        else:
+            result += char
+    return result
+
+def columnar_transposition(text, key):
+    key_indices = sorted(range(len(key)), key=lambda k: key[k])
+    columns = [''] * len(key)
+    
+    for i, char in enumerate(text):
+        columns[i % len(key)] += char
+    
+    return ''.join(columns[i] for i in key_indices)
+
+def product_cipher_encrypt(plaintext, caesar_shift, transposition_key):
+    # Step 1: Substitution (Caesar Cipher)
+    substituted_text = caesar_cipher(plaintext, caesar_shift)
+    
+    # Step 2: Transposition (Columnar Transposition)
+    ciphertext = columnar_transposition(substituted_text, transposition_key)
+    
+    return ciphertext
+
+def product_cipher_decrypt(ciphertext, caesar_shift, transposition_key):
+    # Reverse the transposition
+    key_indices = sorted(range(len(transposition_key)), key=lambda k: transposition_key[k])
+    num_cols = len(transposition_key)
+    num_rows = len(ciphertext) // num_cols
+    remainder = len(ciphertext) % num_cols
+    
+    columns = [''] * num_cols
+    start = 0
+    
+    for index in key_indices:
+        length = num_rows + 1 if index < remainder else num_rows
+        columns[index] = ciphertext[start:start + length]
+        start += length
+    
+    transposed_text = ''.join([columns[i % num_cols][i // num_cols] for i in range(len(ciphertext))])
+    
+    # Reverse the substitution
+    decrypted_text = caesar_cipher(transposed_text, -caesar_shift)
+    
+    return decrypted_text
+
+# Example usage:
+plaintext = "Hello world!"
+caesar_shift = 3
+transposition_key = "3214"
+print("Plain text:",plaintext)
+print("Shift:",caesar_shift)
+print("Transposition Key:",transposition_key)
+
+ciphertext = product_cipher_encrypt(plaintext, caesar_shift, transposition_key)
+print("\nCiphertext:", ciphertext)
+
+decrypted_text = product_cipher_decrypt(ciphertext, caesar_shift, transposition_key)
+print("\nDecrypted Text:", decrypted_text)
+
+
+
+--------------------------------------------------------------------------------------
+
+
++++ 6. Write program to demonstrate integrity management by implementing message digest using MD5. +++
+
+#include <iostream>
+#include <openssl/md5.h>
+#include <iomanip>
+#include <sstream>
+#include <string>
+using namespace std;
+
+string generate_md5_digest(const string& message) {
+    unsigned char digest[MD5_DIGEST_LENGTH];
+    MD5((unsigned char*)message.c_str(), message.size(), digest);
+    ostringstream md5_string;
+    for (int i = 0; i < MD5_DIGEST_LENGTH; i++) {
+        md5_string << hex << setw(2) << setfill('0') << (int)digest[i];
+    }
+    return md5_string.str();
+}
+
+int main() {
+    string message;
+    cout << "Enter the message to hash: ";
+    getline(cin, message);
+    string md5_digest = generate_md5_digest(message);
+    cout << "MD5 Digest of the message: " << md5_digest << endl;
+    return 0;
+}
+
+
+[Python]
+
+import hashlib
+
+def generate_md5_digest(message):
+    md5_hash = hashlib.md5()
+    md5_hash.update(message.encode('utf-8'))
+    digest = md5_hash.hexdigest()
+    return digest
+
+if __name__ == "__main__":
+    message = input("Enter the message to hash: ")
+    md5_digest = generate_md5_digest(message)
+    print(f"MD5 Digest of the message: {md5_digest}")
+
+
+
+----------------------------------------------------------------------
+
+
++++ 7. Implementation and analysis of RSA cryptosystem and Digital signature scheme using RSA. +++
+
+
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int gcd(int a, int b) {
+    while (b != 0) {
+        int t = b;
+        b = a % b;
+        a = t;
+    }
+    return a;
+}
+
+long long mod_exp(long long base, long long exp, long long mod) {
+    long long result = 1;
+    base = base % mod;
+    while (exp > 0) {
+        if (exp % 2 == 1) {
+            result = (result * base) % mod;
+        }
+        exp = exp >> 1;
+        base = (base * base) % mod;
+    }
+    return result;
+}
+
+int mod_inverse(int e, int phi) {
+    int t1 = 0, t2 = 1, r1 = phi, r2 = e;
+    while (r2 != 0) {
+        int q = r1 / r2;
+        int r = r1 - q * r2;
+        r1 = r2;
+        r2 = r;
+
+        int t = t1 - q * t2;
+        t1 = t2;
+        t2 = t;
+    }
+    if (r1 == 1) {
+        return t1 < 0 ? t1 + phi : t1;
+    }
+    return -1;
+}
+
+int main() {
+    int p, q, pt;
+    cout << "Enter the secret message (plaintext) to encrypt: ";
+    cin >> pt;
+
+    cout << "Enter a prime number P: ";
+    cin >> p;
+
+    cout << "Enter a prime number Q: ";
+    cin >> q;
+
+    int n = p * q;
+    int phi = (p - 1) * (q - 1);
+
+    int e = 0;
+    for (int i = 2; i < phi; i++) {
+        if (gcd(i, phi) == 1) {
+            e = i;
+            break;
+        }
+    }
+
+    int d = mod_inverse(e, phi);
+    if (d == -1) {
+        cout << "No modular inverse found for the given e.\n";
+        return 1;
+    }
+
+    long long ct = mod_exp(pt, e, n);
+
+    cout << "\nPublic Key (n, e) = (" << n << ", " << e << ")\n";
+    cout << "Private Key (d) = " << d << "\n";
+    cout << "Ciphertext (CT): " << ct << "\n";
+    long long pt2 = mod_exp(ct, d, n);
+    cout << "\nDecrypting...\n";
+    cout << "Decrypted Plaintext (PT): " << pt2 << "\n";
+
+    return 0;
+}
+
+
